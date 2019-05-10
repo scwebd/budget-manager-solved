@@ -51,6 +51,20 @@ table {
     table-layout: fixed;
 }
 
+th.date,
+th.name,
+th.category  {
+    width: 20%;
+}
+
+th.notes {
+    width: 25%;
+}
+
+th.amount {
+    width: 10%;
+}
+
 .delete {
     color: red;
     cursor: pointer;
