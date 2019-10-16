@@ -1,6 +1,6 @@
 # JavaScript/jQuery Budget Manager
 
-Solved version of the Budget Manager code for DU Coding Boot Camp JavaScript/jQuery Review Session. Thoroughly commented.
+Solved version of the Budget Manager code for DU Coding Boot Camp JavaScript/jQuery Review Session. Thoroughly commented. Now ES6-ier.
 
 ## Author
 
