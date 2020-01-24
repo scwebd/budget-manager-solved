@@ -30,14 +30,14 @@ const renderItems = items => {
     // emptying out previous budget items before rendering newest budget items
     tbody.empty();
 
-    // looping through budget items
-    items.forEach(item => {
+    // looping through budget items (using object destructuring!)
+    for (const {id, date, name, category, amount, notes} of items) {
         // creating a new row for each item, and putting a 'data-id' attribute on the row (we'll use this 
         // later to know which budget item to delete on click of the delete 'x')
-        const row = `<tr data-id=${item.id}><td>${item.date}</td><td>${item.name}</td><td>${item.category}</td><td>$${parseFloat(item.amount).toFixed(2)}</td><td>${item.notes}</td><td class="delete"><span>x</span></td></tr>`;
+        const row = `<tr data-id=${id}><td>${date}</td><td>${name}</td><td>${category}</td><td>$${parseFloat(amount).toFixed(2)}</td><td>${notes}</td><td class="delete"><span>x</span></td></tr>`;
         // prepending each row (created above) to the tbody element
-        tbody.append(row);
-    });
+        tbody.append(row);        
+    }
 
     // using a reduce to get a total amount spent for all budget items in either the passed-in
     // array OR the default budgetItems array
@@ -56,17 +56,10 @@ renderItems();
 
 // click event for the 'Enter New Budget Item' button and 'Hide Form' button/link
 $("#toggleFormButton, #hideForm").on("click", function() {
-    const button = $("#toggleFormButton");
-    const form = $("#addItemForm");
-
     // toggling the visibility of the form
-    form.toggle("slow", function() {
+    $("#addItemForm").toggle("slow", function() {
         // ...and changing the text of the button to reflect the current visiblity state of the form
-        if ($(this).is(":visible")) {
-            button.text("Hide Form");
-        } else {
-            button.text("Enter New Budget Item");
-        }
+        $("#toggleFormButton").text($(this).is(":visible") ? "Hide Form" : "Enter New Budget Item");
     });
 });
 
@@ -79,18 +72,25 @@ $("#addItem").on("click", function(event) {
         id: ++lastID,
         date: moment().format("lll"),
         name: $("#name").val().trim(),
-        category: $("#category").val().trim(),
-        amount: $("#amount").val().trim() || 0,
+        category: $("#category").val(),
+        amount: $("#amount").val().trim(),
         notes: $("#notes").val().trim()
     }
 
+    // if either name, category, or amount are NOT specified, alert the user/break out of function
+    if (!newItem.name || !newItem.category || !newItem.amount) {
+        alert("Each budget item must have a name, category, and amount!");
+        return false;
+    }
+
+    // else add newest item to budgetItems array
     budgetItems.push(newItem);
     // updating localStorage with latest budgetItems/lastID values
     updateStorage();
     // rendering the updated budget items to the page
     renderItems();
-    // clearing out the input fields to allow easier user input of new budget items
-    $("#addItemForm input, #addItemForm select").val("");
+    // resetting the form to allow easier user input of new budget items
+    $("#addItemForm form")[0].reset();
 });
 
 // click event to watch value changes in the category select dropdown
