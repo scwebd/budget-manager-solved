@@ -3,9 +3,9 @@
 // ======================
 
 // pull budgetItems array from localStorage and parse it from a string into an array... if falsy, set to []
-let budgetItems = JSON.parse(localStorage.getItem("budgetItems")) || [];
+let budgetItems = JSON.parse(localStorage.getItem("budgetItems_demo")) || [];
 // pull lastID number from localStorage; if falsy, set to 0
-let lastID = parseInt(localStorage.getItem("lastID")) || 0;
+let lastID = parseInt(localStorage.getItem("lastID_demo")) || 0;
 
 
 // ======================
@@ -15,8 +15,8 @@ let lastID = parseInt(localStorage.getItem("lastID")) || 0;
 // function to update latest budgetItems and lastID values in localStorage (we convert budgetItems 
 // into a string first to placate localStorage)
 const updateStorage = () => {
-    localStorage.setItem("budgetItems", JSON.stringify(budgetItems));
-    localStorage.setItem("lastID", lastID);
+    localStorage.setItem("budgetItems_demo", JSON.stringify(budgetItems));
+    localStorage.setItem("lastID_demo", lastID);
 }
 
 // takes in an optional array and renders each budget item into a row on the table; also updates
