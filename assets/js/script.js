@@ -91,6 +91,8 @@ $("#addItem").on("click", function(event) {
     renderItems();
     // resetting the form to allow easier user input of new budget items
     $("#addItemForm form")[0].reset();
+    // resetting the category filter to the default
+    $("#categoryFilter").val("");
 });
 
 // click event to watch value changes in the category select dropdown
